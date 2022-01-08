@@ -20,6 +20,7 @@ export default function App() {
   });
   const defaultBookList = [
     {
+      id: 0,
       title: "The Martian (Weir novel)",
       author: "Andy Weir",
       published: "12 Feb 2011",
@@ -27,9 +28,9 @@ export default function App() {
       quantity: 42,
       image:
         "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ-NPua9BU_B_3SXuFOZsie5YdH2a0bdB_5ZmF3yLtZbE3eV8Nu",
-      id: "1",
     },
     {
+      id: 1,
       title: "Fifty Shades of Grey ",
       author: "E. L. James",
       published: "25 May 2011",
@@ -37,18 +38,18 @@ export default function App() {
       quantity: 670,
       image:
         "https://encrypted-tbn2.gstatic.com/impuages?q=tbn:ANd9GcQgSSpSSaE8uB8rmnTMf4sLjJjTH_gAlaZHxqKnhwbLsaG3jaNJ",
-      id: "2",
     },
     {
+      id: 2,
       title: "Harry Potter and the Cursed Child",
       author: " Imogen Heap",
       published: "30 July 2016",
       price: "₹1540",
       quantity: 800,
       image: "https://images-na.ssl-images-amazon.com/images/I/71Pk1yXeV8L.jpg",
-      id: "3",
     },
     {
+      id: 3,
       title: "The Kite Runner",
       author: "Khaled Hosseini",
       published: " 29 May 2003",
@@ -56,7 +57,6 @@ export default function App() {
       quantity: 600,
       image:
         "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSbz4BZeSQhv_E9kYEpkOyqctf9Yqx4ys9LtSjoEbblyTRW1DKI",
-      id: "4",
     },
   ];
   const [books, setBooks] = useState(defaultBookList);
@@ -65,12 +65,13 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <Paper sx={{ minHeight: "100vh", borderRadius: "0px" }} elevation={5}>
+
+
         <div className="App">
           <h1>Books List Using CRUD Operations</h1>
 
           <div className="nav-bar">
             <Button
-            
               style={{ fontSize: "1.5rem" }}
               color="inherit"
               onClick={() => {
@@ -112,7 +113,7 @@ export default function App() {
               element={<AddBook books={books} setBooks={setBooks} />}
             />
             <Route
-              path="/booklist/editbook/:id"
+              path="/booklist/edit/:id"
               element={<EditBooks books={books} setBooks={setBooks} />}
             />
           </Routes>

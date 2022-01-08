@@ -10,16 +10,16 @@ import { useNavigate } from "react-router";
 export function BookList({ books, setBooks }) {
   const navigate = useNavigate();
 
-
   const deleteBook = (id) => setBooks(books.filter((book) => book.id !== id));
 
   return (
     <div className="card">
+        
       <div className="card-container">
         {books.map(
-          ({ id, title, author, published, price, quantity, image }) => {
+          ({ id, title, author, published, price, quantity, image },index) => {
             return (
-              <div className="book-details">
+              <div className="book-details" key={index}>
                 <Card sx={{ maxWidth: 250 }}>
                   <img className="card-image" src={image} alt="Book"></img>
                   <CardContent className="text">
@@ -47,11 +47,10 @@ export function BookList({ books, setBooks }) {
                   <CardActions>
                     <Button></Button>
                     <IconButton
-                      onClick={() => navigate(`/booklist/editbook/${id}`)}
+                      onClick={() => navigate(`/booklist/edit/${id}`)}
                       color="secondary"
                       aria-label="editBook"
                       title="Edit Book"
-                      
                     >
                       <EditIcon />
                     </IconButton>

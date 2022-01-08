@@ -70,7 +70,7 @@ export function AddBook({ books, setBooks }) {
             style={{
               backgroundColor: "brown",
               color: "#FFFFFF",
-              marginRight: "auto",
+              marginRight: "20px",
             }}
             onClick={() => navigate("/booklist")}
           >
@@ -81,11 +81,11 @@ export function AddBook({ books, setBooks }) {
             style={{
               backgroundColor: "crimson",
               color: "#FFFFFF",
-              marginLeft: "auto",
+              marginLeft: "20px",
             }}
             onClick={() => {
               const newBook = {
-                id: books.length + 1,
+                id: books.length ,
                 title,
                 author,
                 published,

@@ -1,0 +1,395 @@
+import Button from "@mui/material/Button";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router";
+import { useState } from "react";
+import TextField from "@mui/material/TextField";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+
+export function EditBooks({ books, setBooks }) {
+  const { id } = useParams();
+  const book = books.filter((book) => book.id === id);
+  const navigate = useNavigate();
+
+  const [title, setTitle] = useState(book[0].title);
+  const [author, setAuthor] = useState(book[0].author);
+  const [published, setPublished] = useState(book[0].published);
+  const [price, setPrice] = useState(book[0].price);
+  const [quantity, setQuantity] = useState(book[0].quantity);
+  const [image, setImage] = useState(book[0].image);
+
+  const saveEditedValues = () => {
+    const booksCopy = [...books];
+
+    let filtered = booksCopy.filter(book => book.id === id)
+    filtered[0].title = title;
+    filtered[0].author = author;
+    filtered[0].published = published;
+    filtered[0].price = price;
+    filtered[0].quantity = quantity;
+    filtered[0].image = image;
+   
+    console.log('after edit', booksCopy);
+    setBooks(booksCopy);
+    navigate(`/booklist`);
+  }
+  const edittitle = (e) => {
+    setTitle(e.target.value);
+  };
+  const editauthor = (e) => {
+    setAuthor(e.target.value);
+  };
+  const editpublished = (e) => {
+    setPublished(e.target.value);
+  };
+  const editprice = (e) => {
+    setPrice(e.target.value);
+  };
+  const editquantity = (e) => {
+    setQuantity(e.target.value);
+  };
+  const editimage = (e) => {
+    setImage(e.target.value);
+  };
+  return (
+    <div className="textField-edit">
+      
+    <TextField
+      placeholder="Enter a Name"
+      variant="outlined"
+      style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+      value={title}
+      onChange={edittitle} />
+    <br />
+    <TextField
+      placeholder="Enter author"
+      variant="outlined"
+      style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+      value={author}
+      onChange={editauthor} />
+    <br />
+
+    <TextField
+      placeholder="Enter published"
+      variant="outlined"
+      style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+      value={published}
+      onChange={editpublished} />
+    <br />
+
+    <TextField
+      placeholder="Enter price"
+      variant="outlined"
+      style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+      value={price}
+      onChange={editprice} />
+    <br />
+
+    <TextField
+      placeholder="Enter quantity"
+      variant="outlined"
+      style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+      value={quantity}
+      onChange={editquantity} />
+    <br />
+    <TextField
+      placeholder="Enter Image URL"
+      variant="outlined"
+      style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+      value={image}
+      onChange={editimage} />
+    <br />
+    <br />
+
+    <div className="edit-btn">
+      <Button
+        style={{
+          backgroundColor: "cyan",
+          color:"black",
+          marginRight: "20px",
+        }}
+        onClick={() => navigate(`/booklist`)}
+      >
+         <ArrowBackIcon />
+      </Button>
+      <Button
+        variant="outlined"
+        style={{
+          backgroundColor: "green",
+          color: "#FFFFFF",
+          marginLeft: "20px",
+        }}
+        onClick={(event) => {
+          event.preventDefault();
+          saveEditedValues()
+          console.log("books")
+        }}
+      >
+        Confirm
+      </Button>
+    </div>
+  </div>
+  );
+}
+
+import "./App.css";
+import Button from "@mui/material/Button";
+import { Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router";
+import { useState } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import Paper from "@mui/material/Paper";
+import { BookList } from "./BookList";
+import { AddBook } from "./AddBook";
+import { EditBooks } from "./EditBooks";
+
+export default function App() {
+  const [mode, setMode] = useState("dark");
+  const theme = createTheme({
+    palette: {
+      mode: mode,
+    },
+  });
+  const defaultBookList = [
+    {
+      id: 0,
+      title: "The Martian (Weir novel)",
+      author: "Andy Weir",
+      published: "12 Feb 2011",
+      price: "₹570",
+      quantity: 42,
+      image:
+        "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ-NPua9BU_B_3SXuFOZsie5YdH2a0bdB_5ZmF3yLtZbE3eV8Nu",
+    },
+    {
+      id: 1,
+      title: "Fifty Shades of Grey ",
+      author: "E. L. James",
+      published: "25 May 2011",
+      price: "₹540",
+      quantity: 670,
+      image:
+        "https://encrypted-tbn2.gstatic.com/impuages?q=tbn:ANd9GcQgSSpSSaE8uB8rmnTMf4sLjJjTH_gAlaZHxqKnhwbLsaG3jaNJ",
+    },
+    {
+      id: 2,
+      title: "Harry Potter and the Cursed Child",
+      author: " Imogen Heap",
+      published: "30 July 2016",
+      price: "₹1540",
+      quantity: 800,
+      image: "https://images-na.ssl-images-amazon.com/images/I/71Pk1yXeV8L.jpg",
+    },
+    {
+      id: 3,
+      title: "The Kite Runner",
+      author: "Khaled Hosseini",
+      published: " 29 May 2003",
+      price: "₹550",
+      quantity: 600,
+      image:
+        "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSbz4BZeSQhv_E9kYEpkOyqctf9Yqx4ys9LtSjoEbblyTRW1DKI",
+    },
+  ];
+  const [books, setBooks] = useState(defaultBookList);
+  const navigate = useNavigate();
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Paper sx={{ minHeight: "100vh", borderRadius: "0px" }} elevation={5}>
+        <div className="App">
+          <h1>Books List Using CRUD Operations</h1>
+
+          <div className="nav-bar">
+            <Button
+            
+              style={{ fontSize: "1.5rem" }}
+              color="inherit"
+              onClick={() => {
+                navigate("/booklist");
+              }}
+            >
+              BookLists
+            </Button>
+
+            <Button
+              style={{ fontSize: "1.5rem" }}
+              color="inherit"
+              onClick={() => {
+                navigate("/addBook");
+              }}
+            >
+              Add Book
+            </Button>
+            <Button
+              sx={{ marginLeft: "auto" }}
+              startIcon={
+                mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />
+              }
+              color="inherit"
+              onClick={() => setMode(mode === "light" ? "dark" : "light")}
+            >
+             
+            </Button>
+          </div>
+          <Routes>
+            <Route
+              exact
+              path="/booklist"
+              element={<BookList books={books} setBooks={setBooks} />}
+            />
+
+            <Route
+              path="/addBook"
+              element={<AddBook books={books} setBooks={setBooks} />}
+            />
+            <Route
+              path="/booklist/edit/:id"
+              element={<EditBooks books={books} setBooks={setBooks} />}
+            />
+          </Routes>
+        </div>
+      </Paper>
+    </ThemeProvider>
+  );
+}
+
+
+
+
+
+import Button from "@mui/material/Button";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router";
+import { useState } from "react";
+import TextField from "@mui/material/TextField";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+
+export function EditBooks({ books, setBooks }) {
+  const { id } = useParams();
+  const book = books[id];
+  // const book = books.filter((book) => book.id === id);
+  const [title, setTitle] = useState(book.title);
+  const [author, setAuthor] = useState(book.author);
+  const [published, setPublished] = useState(book.published);
+  const [price, setPrice] = useState(book.price);
+  const [quantity, setQuantity] = useState(book.quantity);
+  const [image, setImage] = useState(book.image);
+  const navigate = useNavigate();
+
+  const edittitle = (e) => {
+    setTitle(e.target.value);
+    const updated_title = title;
+    book.title = updated_title;
+  };
+  const editauthor = (e) => {
+    setAuthor(e.target.value);
+    const updated_author = author;
+    book.author = updated_author;
+  };
+  const editpublished = (e) => {
+    setPublished(e.target.value);
+    const updated_published = published;
+    book.published = updated_published;
+  };
+  const editprice = (e) => {
+    setPrice(e.target.value);
+    const updated_price = price;
+    book.price = updated_price;
+  };
+  const editquantity = (e) => {
+    setQuantity(e.target.value);
+    const updated_quantity = quantity;
+    book.quantity = updated_quantity;
+  };
+  const editimage = (e) => {
+    setImage(e.target.value);
+    const updated_image = image;
+    book.image = updated_image;
+  };
+  
+  return (
+    <div className="textField-edit">
+      
+      <TextField
+        placeholder="Enter a Name"
+        variant="outlined"
+        style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+        value={title}
+        onChange={edittitle} />
+      <br />
+      <TextField
+        placeholder="Enter author"
+        variant="outlined"
+        style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+        value={author}
+        onChange={editauthor} />
+      <br />
+
+      <TextField
+        placeholder="Enter published"
+        variant="outlined"
+        style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+        value={published}
+        onChange={editpublished} />
+      <br />
+
+      <TextField
+        placeholder="Enter price"
+        variant="outlined"
+        style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+        value={price}
+        onChange={editprice} />
+      <br />
+
+      <TextField
+        placeholder="Enter quantity"
+        variant="outlined"
+        style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+        value={quantity}
+        onChange={editquantity} />
+      <br />
+      <TextField
+        placeholder="Enter Image URL"
+        variant="outlined"
+        style={{ width: "15%", margin: "0px 8px", paddingLeft: "5px" }}
+        value={image}
+        onChange={editimage} />
+      <br />
+      <br />
+
+      <div className="edit-btn">
+        <Button
+          style={{
+            backgroundColor: "cyan",
+            color:"black",
+            marginRight: "20px",
+          }}
+          onClick={() => navigate(`/booklist`)}
+        >
+           <ArrowBackIcon />
+        </Button>
+        <Button
+          variant="outlined"
+          style={{
+            backgroundColor: "green",
+            color: "#FFFFFF",
+            marginLeft: "20px",
+          }}
+          onClick={(event) => {
+            event.preventDefault();
+            setBooks([...books]);
+            setTitle("");
+            navigate(`/booklist`);
+            console.log("books")
+          }}
+        >
+          Confirm
+        </Button>
+      </div>
+    </div>
+  );
+}
