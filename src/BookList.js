@@ -47,7 +47,7 @@ export function BookList({ books, setBooks }) {
                   <CardActions>
                     <Button></Button>
                     <IconButton
-                      onClick={() => navigate(`/booklist/edit/${id}`)}
+                      onClick={() => navigate(`/booklist/edit/${index}`)}
                       color="secondary"
                       aria-label="editBook"
                       title="Edit Book"
